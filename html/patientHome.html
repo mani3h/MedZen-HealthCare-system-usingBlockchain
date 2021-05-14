@@ -1,0 +1,335 @@
+<!-- 
+Author       : Shanmuka Abhinay Potti
+Date Updated : 05.06.2020
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Arogya Chain | Patient</title>
+	<meta charset="UTF-8">
+	
+
+	<style>
+
+	  #header1 {
+		height: 100px;
+		width: auto;
+		background-color: #1DCCC4;
+		font-size: 4em;
+		text-align: center;
+		color: white;
+          font-family: sans-serif;
+	  }
+
+	  #container {
+		height: 510px;
+		width: auto;
+
+	  }
+
+	  * {
+		color: #9c9c9c;
+	  }
+
+	  hr {
+		height: 0;
+		border: 0;
+		margin: 0;
+		border-top: 1px solid black;
+		border-bottom: 1px solid #383838;
+	  }
+
+	  body {
+		background: #0a0a0a;
+	  }
+
+	  table {
+		border-collapse: collapse;
+		font: 20px Calibri Light, sans-serif;
+		border-color: transparent;
+		text-align: center;
+	  }
+
+	  th {
+		border-bottom: 1px solid;
+	  }
+
+	  td {
+		padding: 10px;
+		border: 0;
+	  }
+
+	  .borderline {
+		border-right: 1px solid;
+	  }
+
+	  .date {
+		width: 50px;
+	  }
+
+	  .crossref {
+		width: 300px;
+	  }
+
+	  .figure {
+		width: 70px;
+	  }
+	</style>
+    </head>
+
+<body>
+  <header id="header1">Arogya Chain</header>
+
+  <div id="container" class="text-center">
+    <table id="ledger" border="1" >
+      <tr>
+        <th colspan="6">Patient ID: <span id="pid">1234</span></th>
+        <th colspan="6">Present conditions: <span id="pid">On observation</span></th>
+
+      </tr>
+      <tr>
+        <td class="date">Date</td>
+        <td class="crossref">Doctor Name</td>
+        <td class="dept">Department</td>
+        <td class="figure borderline">Hospital ID</td>
+        <td class="crossref">Diagonosed with</td>
+        <td class="stat">Health status</td>
+        <td class="des">Description</td>
+        <td class="figure">Report</td>
+      </tr>
+    </table>
+		<!-- date and depts visited, prescriptions, hospital id,present observation ,com -- health status,mon medical problems  -->
+		<input type="button" value="Fill Table" onclick="return fillTable(
+		'ledger',
+		'Jan 31 2019',
+		'Firstname lastname','Cardiologist',
+		'1',
+		'Fever','Normal',
+		'Low chances for Corona and it is a normal fever',
+		'report link')" />
+
+			<input
+		  type="button"
+		  value="addRow"
+		  onclick="return addRow('ledger')"
+		  />
+
+		<input
+		  type="button"
+		  value="fillRow"
+		  onclick="return fillRow(
+		'ledger',
+		'3' ,
+		'Jan 31',
+		'Firstname lastname',
+		'1',
+		'Fever',
+		'Low chances for Corona and it is a normal fever',
+		'report')"
+		  />
+		  <hr>
+		  </div>
+			<button onclick="getDiag()">retrieve</button>
+			<p id="xbalance"></p>
+
+  <script>
+    function addRow(table) {
+
+      var tableObj = document.getElementById(table);
+      var rowCount = tableObj.rows.length;
+      var row = tableObj.insertRow(rowCount);
+
+      var cell1 = row.insertCell(0);
+      cell1.className = "date";
+
+      var cell2 = row.insertCell(1);
+      cell2.className = "crossref";
+
+      var cell3 = row.insertCell(2);
+      cell3.className = "figure borderline";
+
+      var cell4 = row.insertCell(3);
+      cell4.className = "date";
+
+      var cell5 = row.insertCell(4);
+      cell5.className = "crossref";
+
+      var cell6 = row.insertCell(5);
+      cell6.className = "figure";
+    }
+
+    function fillRow(table, rowno, date1, crossref1, figure1, date2, crossref2, figure2) {
+
+      var tableObj = document.getElementById(table);
+      var rowCount = tableObj.rows.length;
+      var row = tableObj.rows[rowCount - 1];
+
+      var cell1 = row.cells[0];
+      cell1.innerHTML = date1;
+      cell1.className = "date";
+
+      var cell2 = row.cells[1];
+      cell2.innerHTML = crossref1;
+      cell2.className = "crossref";
+
+      var cell3 = row.cells[2];
+      cell3.innerHTML = figure1;
+      cell3.className = "figure borderline";
+
+      var cell4 = row.cells[3];
+      cell4.innerHTML = date2;
+      cell4.className = "date";
+
+      var cell5 = row.cells[4];
+      cell5.innerHTML = crossref2;
+      cell5.className = "crossref";
+
+      var cell6 = row.cells[5];
+      cell6.innerHTML = figure2;
+      cell6.className = "figure";
+    }
+
+    function fillTable(table, d1,name,dept,hid,diag,stat,des,report) {
+
+      var tableObj = document.getElementById(table);
+      var rowCount = tableObj.rows.length;
+      var row = tableObj.insertRow(rowCount);
+
+      var cell1 = row.insertCell(0);
+      cell1.innerHTML = d1;
+      cell1.className = "date";
+
+      var cell2 = row.insertCell(1);
+      cell2.innerHTML = name;
+      cell2.className = "crossref";
+
+      var cell3 = row.insertCell(2);
+      cell3.innerHTML = dept;
+      cell3.className = "dept";
+
+      var cell4 = row.insertCell(3);
+      cell4.innerHTML = hid;
+      cell4.className = "figure borderline";
+
+      var cell5 = row.insertCell(4);
+      cell5.innerHTML = diag;
+
+      cell5.className = "date";
+
+      var cell6 = row.insertCell(5);
+      cell6.innerHTML = stat;
+      cell6.className = "stat";
+
+      var cell7 = row.insertCell(6);
+      cell7.innerHTML = des;
+      cell7.className = "des";
+
+            var cell8 = row.insertCell(7);
+            cell8.innerHTML += "<a href='/report'>Report</a>" ;
+            cell8.className = "figure";
+    }
+  </script>
+    
+     <!-- 
+    Author       : Ramaguru Radhakrishnan
+    Date Updated : 18.05.2020
+    -->
+    <script src=" https://cdn.jsdelivr.net/npm/web3/dist/web3.js"></script>
+    <script src="../js/abi.js"></script>
+    <script>
+		var account;
+        window.addEventListener('load', async () => {
+	
+		if (typeof window.ethereum !== 'undefined') { 
+			console.log("MetaMask is installed!"); 
+			}
+			
+		// Modern DApp browsers
+		if (window.ethereum) {
+			window.web3 = new Web3(ethereum);
+			
+			// To prevent the page reloading when the MetaMask network changes
+			ethereum.autoRefreshOnNetworkChange = false;
+			
+			// To Capture the account details from MetaMask
+			const accounts = await ethereum.enable();
+			account = accounts[0];
+				
+			}
+		// Legacy DApp browsers
+		else if (window.web3) {
+			//window.web3 = new Web3(web3.currentProvider);
+			window.web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/cbd9dc11b30147e9a2cc974be655ef7c")); 
+			}
+		// Non-DApp browsers
+		else {
+			console.log('Non-Ethereum browser detected. Please install MetaMask');
+			}
+
+			}); 
+    </script>
+    
+    <script>
+         web3 = new Web3(new Web3.providers.WebsocketProvider("wss://ropsten.infura.io/ws/v3/cbd9dc11b30147e9a2cc974be655ef7c"));
+
+         var subscription = web3.eth.subscribe('logs', {
+             address: '0x2Aad0cB9eB6C39508599E5aD866C18a2d90187Ff',
+             topics: ['0xa1cac0c02aaa8455b22f4edad5ea6218aeec41fd73afcf8668f7586accd1f901']
+             }, function(error, result){
+             console.log("inside if");   
+             if (!error)
+             {
+                console.log(hexToString (result.data));
+             }
+             else
+             {
+                console.log(error);
+             }
+         });
+		 
+		 
+        function hexToString (hex) 
+					{
+						var tobeconverted = '';
+						tobeconverted = parseInt(hex).toString();
+						console.log(tobeconverted);
+						return tobeconverted;
+					}
+        
+        //function to retrieve the last inserted value on the blockchain
+        function getDiag()
+        {
+            
+            console.log("Getting Details...");
+
+            try 
+            {
+               
+                //instantiate and connect to contract address via Abi
+                var myContract = new web3.eth.Contract(patABI, patSCAddr, {from: account, gasPrice: '5000000', gas: '300000'});
+               
+                //var hosp_name = document.getElementById("hosp_name").value;
+                //var hosp_loc = document.getElementById("hosp_loc").value;
+                //var spl = document.getElementById("specializations").value;
+                
+                myContract.methods.updateMedicalRecord().send(function (err, result) 
+                {
+                    if (err) 
+                    { 
+                        console.log(err)
+                    }
+                    if (result) 
+                    {
+                        //display value on the webpage
+                        console.log(result);
+                    }
+                });
+            }
+            catch (err) 
+            {
+                //document.getElementById("xbalance").innerHTML = err;
+            }
+        }
+    </script> 
+</body>
+</html>

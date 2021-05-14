@@ -1,0 +1,171 @@
+<!-- 
+Author       : Shanmuka Abhinay Potti
+Date Updated : 05.06.2020
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Arogya chain | Profile Card</title>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style>
+		.card {
+		  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		  max-width: 300px;
+		  margin: auto;
+		  text-align: center;
+		  font-family: arial;
+		}
+
+		.title {
+		  color: grey;
+		  font-size: 18px;
+		}
+
+		button {
+		  border: none;
+		  outline: 0;
+		  display: inline-block;
+		  padding: 8px;
+		  color: white;
+		  background-color: #000;
+		  text-align: center;
+		  cursor: pointer;
+		  width: 100%;
+		  font-size: 18px;
+		}
+
+		a {
+		  text-decoration: none;
+		  font-size: 22px;
+		  color: black;
+		}
+
+		button:hover, a:hover {
+		  opacity: 0.7;
+		}
+		</style>
+	</head>
+	<body>
+
+		<h2 style="text-align:center">Doctor Profile</h2>
+
+		<div class="card">
+		  <img src="images/doctor.jpg" alt="John" style="width:100%">
+		  <h1>John Doe</h1>
+		  <p class="title">MD, DM, FAMS, FAAN. Chief of Neurology</p>
+		  <p>Care Hospitals</p>
+		  <div style="margin: 24px 0;">
+			<a href="#"><i class="fa fa-dribbble"></i></a> 
+			<a href="#"><i class="fa fa-twitter"></i></a>  
+			<a href="#"><i class="fa fa-linkedin"></i></a>  
+			<a href="#"><i class="fa fa-facebook"></i></a> 
+		  </div>
+		  <p><button>Contact</button></p>
+		</div>
+	<!-- 
+    Author       : Ramaguru Radhakrishnan
+    Date Updated : 18.05.2020
+    -->
+    <script src=" https://cdn.jsdelivr.net/npm/web3/dist/web3.js"></script>
+    <script>
+		var account;
+        window.addEventListener('load', async () => {
+	
+		console.log('Window Load Event');
+	
+		if (typeof window.ethereum !== 'undefined') { 
+			console.log("MetaMask is installed!"); 
+			}
+			
+		// Modern DApp browsers
+		if (window.ethereum) {
+			window.web3 = new Web3(ethereum);
+			
+			// To prevent the page reloading when the MetaMask network changes
+			ethereum.autoRefreshOnNetworkChange = false;
+			
+			// To Capture the account details from MetaMask
+			const accounts = await ethereum.enable();
+			account = accounts[0];
+				
+			}
+		// Legacy DApp browsers
+		else if (window.web3) {
+			//window.web3 = new Web3(web3.currentProvider);
+			window.web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/cbd9dc11b30147e9a2cc974be655ef7c")); 
+			}
+		// Non-DApp browsers
+		else {
+			console.log('Non-Ethereum browser detected. Please install MetaMask');
+			}
+
+			});  
+    </script>
+    
+    <script>
+         web3 = new Web3(new Web3.providers.WebsocketProvider("wss://ropsten.infura.io/ws/v3/cbd9dc11b30147e9a2cc974be655ef7c"));
+         console.log("checking");
+         var subscription = web3.eth.subscribe('logs', {
+             address: '0x2Aad0cB9eB6C39508599E5aD866C18a2d90187Ff',
+             topics: ['0xa1cac0c02aaa8455b22f4edad5ea6218aeec41fd73afcf8668f7586accd1f901']
+             }, function(error, result){
+             console.log("inside if");   
+             if (!error)
+             {
+                console.log(hexToString (result.data));
+             }
+             else
+             {
+                console.log(error);
+             }
+         });
+		 
+		 
+        function hexToString (hex) 
+					{
+						var tobeconverted = '';
+						tobeconverted = parseInt(hex).toString();
+						console.log(tobeconverted);
+						return tobeconverted;
+					}
+        
+        //function to retrieve the last inserted value on the blockchain
+        function getValue()
+        {
+            console.log("Getting the value");
+
+            try 
+            {
+                // contract Abi defines all the variables,constants and functions of the smart contract. replace with your own abi
+                var abi = 
+                    [
+
+                    ]
+                //contract address. please change the address to your own
+                var contractaddress = '0x2A73aeD68cA411F38f34251AD81b4b6C599bb4df';
+				
+                //instantiate and connect to contract address via Abi
+                var myContract = new web3.eth.Contract(pracABI, pracSCAddr, {from: account, gasPrice: '5000000', gas: '300000'});
+                
+                //call the get function of our SimpleStorage contract
+                mycontract.methods.retreive.call(function (err, id) 
+                {
+                    if (err) 
+                    { 
+                        console.log(err)
+                    }
+                    if (id) 
+                    {
+                        //display value on the webpage
+                    }
+                });
+            }
+            catch (err) 
+            {
+                document.getElementById("xbalance").innerHTML = err;
+            }
+        }
+    </script> 
+</body>
+</html>

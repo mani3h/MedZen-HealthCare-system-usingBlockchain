@@ -1,0 +1,286 @@
+<!-- 
+Author       : Shanmuka Abhinay Potti
+Date Updated : 05.06.2020
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> MedZen | Practitioner </title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="../assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../assets/vendor/venobox/venobox.css" rel="stylesheet">
+		<style>
+		* {
+		  box-sizing: border-box;
+		}
+
+		input[type=text], select, textarea {
+		  width: 100%;
+		  padding: 12px;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  resize: vertical;
+		}
+
+		label {
+		  padding: 12px 12px 12px 0;
+		  display: inline-block;
+		}
+
+		input[type=submit] {
+		  background-color: #4CAF50;
+		  color: white;
+		  padding: 12px 20px;
+		  border: none;
+		  border-radius: 4px;
+		  cursor: pointer;
+		  float: right;
+		}
+
+		input[type=submit]:hover {
+		  background-color: #45a049;
+		}
+
+		.container {
+		  border-radius: 5px;
+		  background-color: #f2f2f2;
+		  padding: 20px;
+		}
+
+		.col-25 {
+		  float: left;
+		  width: 25%;
+		  margin-top: 6px;
+		}
+
+		.col-75 {
+		  float: left;
+		  width: 75%;
+		  margin-top: 6px;
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+
+		/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 600px) {
+		  .col-25, .col-75, input[type=submit] {
+			width: 100%;
+			margin-top: 0;
+		  }
+		}
+        #header1 {
+		height: 100px;
+		width: auto;
+		background-color: #1DCCC4;
+		font-size: 4em;
+		text-align: center;
+		color: white;
+          font-family: sans-serif;
+	  }
+		</style>
+	</head>
+	<body>
+	<header id="header1">MedZen</header>
+        
+	<h2 align="center">Practitioner Registration</h2>
+	<p align="center">Register as a practitioner here</p>
+
+	<div class="container">
+	  <form action="/action_page.php">
+		<div class="row">
+		  <div class="col-25">
+			<label for="fname">Practitioner Name</label>
+		  </div>
+		  <div class="col-75">
+			<input type="text" id="fname" name="name" placeholder="Your name..">
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-25">
+			<label for="spl">Specialization</label>
+		  </div>
+		  <div class="col-75">
+			<input type="text" id="lname" name="spl" placeholder="Your Degree/specialization..">
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-25">
+			<label for="dept">Department</label>
+		  </div>
+		  <div class="col-75">
+			<select id="department" name="dept">
+			  <option value="ortho">Ortho</option>
+			  <option value="cardio">Cardio</option>
+			  <option value="neuro">Neuro</option>
+			</select>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-25">
+			<label for="workingHospId">Working Hospital ID</label>
+		  </div>
+		  <div class="col-75">
+			<input type="text" id="workingId" name="workingHospId" placeholder="Your organization unique ID..">
+		  </div>
+		</div>
+		  
+		<div class="row">
+		  <div class="col-25">
+			<label for="proof">Working proof ID</label>
+		  </div>
+		  <div class="col-75">
+			<input type="text" id="proof" name="proof" placeholder="Your Working ID number..">
+		  </div>
+		</div>
+		  <br>
+		<div class="row">
+			<button type="button" align="right" onclick="registerPrac()">Submit</button>
+		  
+		</div>
+	  </form>
+		
+		
+	</div>
+		<!--Practitioner ID: <p id="prac_id"></p><br>
+		Practitioner Name: <p id="prac_name"></p><br>
+		Practitioner Specialization: <p id="prac_spl"></p><br>
+		Practitioner Department: <p id="prac_dept"></p><br>
+		Practitioner Woriking in: <p id="prac_hosp_id"></p><br>
+		Practitioner Working ID proof: <p id="prac_work_proof"></p>--><br>
+		
+    <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 text-lg-left text-center">
+          <div class="copyright">
+            &copy; Copyright 2020 <strong>MedZen</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            
+            Designed by <a href="#">Team MedZen</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+            <a href="#intro" class="scrollto">Home</a>
+            <a href="#about" class="scrollto">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+     <!-- 
+    Author       : Ramaguru Radhakrishnan
+    Date Updated : 18.05.2020
+    -->
+    <script src=" https://cdn.jsdelivr.net/npm/web3/dist/web3.js"></script>
+    <script src="../js/abi.js"></script>
+    <script>
+		var account;
+        window.addEventListener('load', async () => {
+
+		if (typeof window.ethereum !== 'undefined') { 
+			console.log("MetaMask is installed!"); 
+			}
+			
+		// Modern DApp browsers
+		if (window.ethereum) {
+			window.web3 = new Web3(ethereum);
+			
+			// To prevent the page reloading when the MetaMask network changes
+			ethereum.autoRefreshOnNetworkChange = false;
+			
+			// To Capture the account details from MetaMask
+			const accounts = await ethereum.enable();
+			account = accounts[0];
+				
+			}
+		// Legacy DApp browsers
+		else if (window.web3) {
+			//window.web3 = new Web3(web3.currentProvider);
+			window.web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/cbd9dc11b30147e9a2cc974be655ef7c")); 
+			}
+		// Non-DApp browsers
+		else {
+			console.log('Non-Ethereum browser detected. Please install MetaMask');
+			}
+
+			}); 
+    </script>
+    
+    <script>
+         web3 = new Web3(new Web3.providers.WebsocketProvider("wss://ropsten.infura.io/ws/v3/cbd9dc11b30147e9a2cc974be655ef7c"));
+         console.log("checking");
+         var subscription = web3.eth.subscribe('logs', {
+             address: '0x2Aad0cB9eB6C39508599E5aD866C18a2d90187Ff',
+             topics: ['0xa1cac0c02aaa8455b22f4edad5ea6218aeec41fd73afcf8668f7586accd1f901']
+             }, function(error, result){
+             console.log("inside if");   
+             if (!error)
+             {
+                console.log(hexToString (result.data));
+             }
+             else
+             {
+                console.log(error);
+             }
+         });
+		 
+		 
+        function hexToString (hex) 
+					{
+						var tobeconverted = '';
+						tobeconverted = parseInt(hex).toString();
+						console.log(tobeconverted);
+						return tobeconverted;
+					}
+        
+        //function to retrieve the last inserted value on the blockchain
+        function registerPrac()
+        {
+            
+            console.log("Registering Practitioner...");
+
+            try 
+            {
+               
+                //instantiate and connect to contract address via Abi
+                var myContract = new web3.eth.Contract(pracABI, pracSCAddr, {from: account, gasPrice: '5000000', gas: '300000'});
+                
+                var prac_name = document.getElementById("fname").value;
+                var prac_dept = document.getElementById("department").value;
+                var spl = document.getElementById("lname").value; 
+                var proof = document.getElementById("proof").value;
+                
+                myContract.methods.registerPractitioner(prac_name,spl,prac_dept,"hosp id",proof).send(function (err, result) 
+                {
+                    if (err) 
+                    { 
+                        console.log(err)
+                    }
+                    if (result) 
+                    {
+                        //display value on the webpage
+                        console.log(result);
+                    }
+                });
+            }
+            catch (err) 
+            {
+                //document.getElementById("xbalance").innerHTML = err;
+            }
+        }
+    </script> 
+</body>
+</html>

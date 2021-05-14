@@ -1,0 +1,187 @@
+<!-- 
+Author       : Shanmuka Abhinay Potti
+Date Updated : 05.06.2020
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Arogya chain | Practitioner</title>
+    <meta charset="UTF-8">
+</head>
+    <body>
+        
+        <h1 align="center">Arogya Chain</h1>
+        
+        <div align="right"><a href="profilecard.html">Profile</a></div>
+        <h2>Add patient:</h2>
+        
+        <form action="/action_page.php" method="post">
+            <label for="fname">Patient ID:</label>
+            <input type="text" id="fname" name="fname"><br><br>
+            <label for="lname">Diagnosis:</label>
+            <input type="text" id="lname" name="lname"><br><br>
+            <label for="medicines">Medicines</label>
+            <input type="text" id="medicines" name="medicines"><br><br>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description"><br><br>
+            <h3>upload reports:</h3>
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+<input type="file" name="filetoAddIPFS" id="filetoAddIPFS" onchange="captureFile()">
+           
+            <input type="button" value="Upload" name="submit" onclick="addFile2IPFS()">
+</form><br><br>
+            <button type="button" onclick="enterDiag()">Submit</button>
+             <!--<input type="submit" value="Submit">
+        --></form> 
+    
+     <!-- 
+    Author       : Ramaguru Radhakrishnan
+    Date Updated : 18.05.2020
+    -->
+    <script src=" https://cdn.jsdelivr.net/npm/web3/dist/web3.js"></script>
+        <script src="../js/abi.js"></script>
+        <script>
+		var account;
+        window.addEventListener('load', async () => {
+	
+		console.log('Window Load Event');
+	
+		if (typeof window.ethereum !== 'undefined') { 
+			console.log("MetaMask is installed!"); 
+			}
+			
+		// Modern DApp browsers
+		if (window.ethereum) {
+			window.web3 = new Web3(ethereum);
+			
+			// To prevent the page reloading when the MetaMask network changes
+			ethereum.autoRefreshOnNetworkChange = false;
+			
+			// To Capture the account details from MetaMask
+			const accounts = await ethereum.enable();
+			account = accounts[0];
+				
+			}
+		// Legacy DApp browsers
+		else if (window.web3) {
+			//window.web3 = new Web3(web3.currentProvider);
+			window.web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/cbd9dc11b30147e9a2cc974be655ef7c")); 
+			}
+		// Non-DApp browsers
+		else {
+			console.log('Non-Ethereum browser detected. Please install MetaMask');
+			}
+
+			});  
+    </script>
+        
+    <script>
+         web3 = new Web3(new Web3.providers.WebsocketProvider("wss://ropsten.infura.io/ws/v3/cbd9dc11b30147e9a2cc974be655ef7c"));
+         console.log("checking");
+         var subscription = web3.eth.subscribe('logs', {
+             address: '0x2Aad0cB9eB6C39508599E5aD866C18a2d90187Ff',
+             topics: ['0xa1cac0c02aaa8455b22f4edad5ea6218aeec41fd73afcf8668f7586accd1f901']
+             }, function(error, result){
+             console.log("inside if");   
+             if (!error)
+             {
+                console.log(hexToString (result.data));
+             }
+             else
+             {
+                console.log(error);
+             }
+         });
+		 
+		 
+        function hexToString (hex) 
+					{
+						var tobeconverted = '';
+						tobeconverted = parseInt(hex).toString();
+						console.log(tobeconverted);
+						return tobeconverted;
+					}
+        
+        //function to retrieve the last inserted value on the blockchain
+        function enterDiag()
+        {
+            
+            console.log("Diagnoising Patient...");
+
+            try 
+            {
+               
+                //instantiate and connect to contract address via Abi
+                var myContract = new web3.eth.Contract(pracABI, pracSCAddr, {from: account, gasPrice: '5000000', gas: '300000'});
+         
+                var pat_id = document.getElementById("fname").value;
+                var diag = document.getElementById("lname").value;
+                //var spl = document.getElementById("specializations").value;
+             
+                myContract.methods.treatAndUpdateRecord(pat_id,"good",diag,[] ,"link").send(function (err, result) 
+                {
+                    if (err) 
+                    { 
+                        console.log(err)
+                    }
+                    if (result) 
+                    {
+                        //display value on the webpage
+                        console.log(result);
+                    }
+                });
+            }
+            catch (err) 
+            {
+                //document.getElementById("xbalance").innerHTML = err;
+            }
+        }
+    </script> 
+        <script src="https://cdn.jsdelivr.net/npm/ipfs-http-client@42.0.0/dist/index.js"></script>
+
+    <script>
+	
+		/**  To Connect to the Remote IPFS Service Running at INFURA through HTTPS:5001 **/
+        const ipfs = IpfsHttpClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+		
+		var fileBuffer;
+		
+		/** Function to convert the file to ByteArray **/
+        function captureFile()
+        {
+		
+			var fileByteArray;
+			
+            var reader = new FileReader();
+            const file = filetoAddIPFS.files[0];
+            reader.readAsArrayBuffer(file);
+            reader.onloadend = 
+            function (evt) 
+            {
+                fileByteArray = reader.result;
+				fileBuffer = new Uint8Array(fileByteArray);
+				console.log("Buffer: ", fileBuffer);
+				
+            }		 
+       }
+	   
+	   /** Function to add the Array to IPFS **/
+	   async function addFile2IPFS(){
+			
+			console.log("Adding File to IPFS..")
+			
+			/** IPFS Add Command **/
+			ipfs.add(fileBuffer, (error, result) => {
+			if (result) {
+				console.log(result);
+			} 
+			else 
+			{
+				console.log(error);
+			}
+			});
+	   }
+    </script>
+    
+    </body>
+</html>
